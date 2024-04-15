@@ -24,6 +24,13 @@
     <div class="wrapper">
         <div class="content"><?php
                                 include("../views/header.php");
+                                session_start();
+
+                                // If the admin is not logged in, redirect to the login page
+                                // if (!isset($_SESSION['loggedin']) || !$_SESSION['loggedin']) {
+                                //     header('Location: admin_login.php');
+                                //     exit;
+                                // }
                                 include("../config/dbcon.php");
                                 ?>
             <table class="table table-hover table-bordered table-striped">

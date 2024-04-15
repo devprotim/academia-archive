@@ -3,12 +3,12 @@
 define("HOSTNAME", "localhost");
 define("USERNAME", "root");
 define("PASSWORD", "");
-define("DATABASE", "academia archive");
+define("DATABASE", "academia-archive");
 
 $connection = mysqli_connect(HOSTNAME, USERNAME, PASSWORD, DATABASE);
 
 if (!$connection) {
     die("Connection Failed");
 } else {
-    echo "Connected";
+    // echo "Connected";
 }

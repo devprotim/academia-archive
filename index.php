@@ -36,8 +36,9 @@
                     <p class="lead">This system helps you manage data for PhD students.</p>
                     <hr class="my-4">
                     <p>Click the buttons below to get started:</p>
-                    <a class="btn btn-primary btn-lg" href="../academia-archive/views/add_students.php" role="button">Add as Student</a>
-                    <a class="btn btn-secondary btn-lg" href="/academia-archive/views/home.php" role="button">Login as Admin</a>
+                    <a class="btn btn-primary btn-lg" href="/academia-archive/views/add_students.php" role="button">Add as Student</a>
+                    <a class="btn btn-secondary btn-lg" href="/academia-archive/views/home.php" role="button">Login as Admin</a>                    <a class="btn btn-secondary btn-lg" href="/academia-archive/views/admin_login.php" role="button">Login as Admin</a>
+
                 </div>
             </div>
         </div>
