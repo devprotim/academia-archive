@@ -51,13 +51,13 @@
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="first_name" class="form-label">First Name</label>
-                                <input type="text" class="form-control" id="first_name" name="first_name">
+                                <input type="text" class="form-control" id="first_name" name="first_name" required>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="last_name" class="form-label">Last Name</label>
-                                <input type="text" class="form-control" id="last_name" name="last_name">
+                                <input type="text" class="form-control" id="last_name" name="last_name" required>
                             </div>
                         </div>
                     </div>
@@ -65,13 +65,13 @@
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="discipline" class="form-label">Discipline</label>
-                                <input type="text" class="form-control" id="discipline" name="discipline">
+                                <input type="text" class="form-control" id="discipline" name="discipline"required>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="topic" class="form-label">Topic</label>
-                                <input type="text" class="form-control" id="topic" name="topic">
+                                <input type="text" class="form-control" id="topic" name="topic" required>
                             </div>
                         </div>
                     </div>
@@ -93,7 +93,7 @@
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="email" class="form-label">Email</label>
-                                <input type="email" class="form-control" id="email" name="email">
+                                <input type="email" class="form-control" id="email" name="email" required>
                             </div>
                         </div>
                     </div>
