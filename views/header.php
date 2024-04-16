@@ -26,6 +26,8 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/views/index.php">View Students</a>
+                    </li><li class="nav-item">
+                        <a class="nav-link" href="/academia-archive/views/logout.php">Logout</a>
                     </li>
                 </ul>
             </div>

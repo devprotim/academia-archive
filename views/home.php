@@ -27,10 +27,10 @@
                                 session_start();
 
                                 // If the admin is not logged in, redirect to the login page
-                                // if (!isset($_SESSION['loggedin']) || !$_SESSION['loggedin']) {
-                                //     header('Location: admin_login.php');
-                                //     exit;
-                                // }
+                                if (!isset($_SESSION['loggedin']) || !$_SESSION['loggedin']) {
+                                    header('Location: admin_login.php');
+                                    exit;
+                                }
                                 include("../config/dbcon.php");
                                 ?>
             <table class="table table-hover table-bordered table-striped">
@@ -52,7 +52,7 @@
                 </thead>
                 <tbody>
                     <?php
-                    $query = "select * from students";
+                    $query = "select * from student_table";
                     $result = mysqli_query($connection, $query);
                     // print_r($result);
 

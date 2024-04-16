@@ -22,7 +22,7 @@ if (isset($_POST['add_students'])) {
     }
 
     // Prepare and execute SQL query to insert data into the database
-    $sql = "INSERT INTO students ( student_id, first_name, last_name, discipline, topic, superviser, co_superviser, email) 
+    $sql = "INSERT INTO student_table ( student_id, first_name, last_name, discipline, topic, superviser, co_superviser, email) 
             VALUES ( '$student_id', '$first_name', '$last_name', '$discipline', '$topic', '$superviser', '$co_superviser', '$email')";
 
     if ($conn->query($sql) === TRUE) {
