@@ -22,15 +22,15 @@ if ($result->num_rows > 0) {
     $row = $result->fetch_assoc();
     // Verify the password
     // if (password_verify($password, $row['password'])) {
-        // Login successful, store the admin's information in the session
-        $_SESSION['loggedin'] = true;
-        $_SESSION['admin_id'] = $row['id'];
-        $_SESSION['admin_username'] = $row['username'];
-        $_SESSION['admin_email'] = $row['email'];
+    // Login successful, store the admin's information in the session
+    $_SESSION['loggedin'] = true;
+    $_SESSION['admin_id'] = $row['id'];
+    $_SESSION['admin_username'] = $row['username'];
+    $_SESSION['admin_email'] = $row['email'];
 
-        // Redirect to the admin dashboard or another page
-        header('Location: home.php');
-        // exit;
+    // Redirect to the admin dashboard or another page
+    header('Location: home.php');
+    // exit;
     // } else {
     //     // Invalid password
     //     $error = "Invalid username or password";
@@ -40,7 +40,7 @@ if ($result->num_rows > 0) {
 } else {
     // Invalid username
     $error = "Invalid username or password";
-    header("Location: login.php?error=" . urlencode($error));
+    header("Location: admin_login.php?error=" . urlencode($error));
     exit;
 }
 
