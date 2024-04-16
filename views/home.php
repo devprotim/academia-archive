@@ -5,35 +5,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Academia Archive</title>
-    <!-- <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css"> -->
     <link rel="stylesheet" href="../assets/css/styles.css">
-    <style>
-        .wrapper {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .content {
-            flex: 1;
-        }
-    </style>
 </head>
 
 <body>
     <div class="wrapper">
-        <div class="content"><?php
-                                include("../views/header.php");
-                                session_start();
+        <div class="content">
+            <?php
+            include("../views/header.php");
+            session_start();
 
-                                // If the admin is not logged in, redirect to the login page
-                                if (!isset($_SESSION['loggedin']) || !$_SESSION['loggedin']) {
-                                    header('Location: admin_login.php');
-                                    exit;
-                                }
-                                include("../config/dbcon.php");
-                                ?>
-            <table class="table table-hover table-bordered table-striped">
+            // If the admin is not logged in, redirect to the login page
+            if (!isset($_SESSION['loggedin']) || !$_SESSION['loggedin']) {
+                header('Location: admin_login.php');
+                exit;
+            }
+            include("../config/dbcon.php");
+            ?>
+
+            <table class="table table-hover table-bordered table-striped container">
                 <thead>
                     <tr>
                         <th>id</th>
@@ -99,11 +89,11 @@
                     // }
                     ?>
                 </tbody>
-                ...
+
             </table>
 
-            <a role="button" type="button" class="btn btn-primary" href="/academia-archive/views/add_students.php"> Add Students
-            </a>
+            <!-- <a role="button" type="button" class="btn btn-primary" href="/academia-archive/views/add_students.php"> Add Students
+            </a> -->
 
             <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
@@ -132,10 +122,6 @@
 
 
     </div>
-    <!-- 
-    <script src="../node_modules/jquery/dist/jquery.min.js"></script>
-    <script src="../node_modules/@popperjs/core/dist/umd/popper.min.js"></script>
-    <script src="../node_modules/bootsthap/dist/js/bootsthap.min.js"></script> -->
 </body>
 
 </html>

@@ -33,11 +33,11 @@
             <div class="container my-5">
                 <div class="jumbotron bg-light p-5 rounded-3">
                     <h1 class="display-4">Welcome to the Academia Archive</h1>
-                    <p class="lead">This system helps you manage data for PhD students.</p>
+                    <p class="lead">This application helps you manage data for PhD students.</p>
                     <hr class="my-4">
                     <p>Click the buttons below to get started:</p>
                     <a class="btn btn-primary btn-lg" href="/academia-archive/views/add_students.php" role="button">Add as Student</a>
-                    <a class="btn btn-secondary btn-lg" href="/academia-archive/views/home.php" role="button">Login as Admin</a>                    
+                    <a class="btn btn-success btn-lg" href="/academia-archive/views/home.php" role="button">Login as Admin</a>
                 </div>
             </div>
         </div>

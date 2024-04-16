@@ -1,28 +1,64 @@
+<?php
+// Start the session
+session_start();
+
+// Check if the admin is already logged in
+if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
+    // Redirect to the admin dashboard or another page
+    header('Location: home.php');
+    exit;
+}
+?>
+
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Admin Login</title>
+
+    <link rel="stylesheet" href="../assets/css/styles.css">
 </head>
+
 <body>
-    <h1>Admin Login</h1>
-    <?php
-    // Display error message if provided
-    if (isset($_GET['error'])) {
-        $error = $_GET['error'];
-        echo "<p style='color: red;'>$error</p>";
-        
-    }
-   
+    <div class="wrapper">
+        <div class="content">
+            <?php
+            include("../views/header.php");
+            // Display error message if provided
+            if (isset($_GET['error'])) {
+                $error = $_GET['error'];
+                echo "<p style='color: red;'>$error</p>";
+            }
+            ?>
+            <div class="d-flex align-items-center justify-content-center   ">
 
-    ?>
-    <form action="process_login.php" method="post">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required><br><br>
 
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required><br><br>
+                <div class="col-12 col-md-3 bg-light p-5 rounded-3 centered">
+                    <h1 class="text-center">Admin Login</h1>
+                    <form action="process_login.php" method="post">
 
-        <input type="submit" value="Login">
-    </form>
+                        <div class="">
+                            <label for="username">Username:</label>
+                            <input class="form-control" type="text" id="username" name="username" required><br><br>
+                        </div>
+
+                        <div class="">
+                            <label for="password">Password:</label>
+                            <input class="form-control" type="password" id="password" name="password" required><br><br>
+                        </div>
+
+                        <div class="">
+                            <input class="btn btn-primary w-100" type="submit" value="Login">
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
+<?php
+include("../views/footer.php");
+?>
+
 </html>

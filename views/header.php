@@ -18,17 +18,25 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.php">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/academia-archive/views/home.php">Add Student</a>
-                    </li>
-                    <li class="nav-item">
+
+
+                    <!-- <li class="nav-item">
                         <a class="nav-link" href="/views/index.php">View Students</a>
-                    </li><li class="nav-item">
-                        <a class="nav-link" href="/academia-archive/views/logout.php">Logout</a>
-                    </li>
+                    </li> -->
+
+                    <?php
+                    session_start();
+                    $is_logged_in = isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true;
+                    if ($is_logged_in) {
+                        echo '<li class="nav-item">
+                    <a class="nav-link" href="add_students.php">Add Student</a>
+                </li>';
+                        echo '<li class="nav-item">
+                <a class="nav-link" href="home.php">Home</a>
+            </li>';
+                        echo '<li class="nav-item"><a class="nav-link" href="/academia-archive/views/logout.php">Logout</a></li>';
+                    }
+                    ?>
                 </ul>
             </div>
         </div>
