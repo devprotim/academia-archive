@@ -25,7 +25,7 @@ include("../config/dbcon.php");
                     <th>Discipline</th>
                     <th>Topic</th>
                     <th>Superviser</th>
-                    <th>Co_superviser</th>
+                    <th>Co Superviser</th>
                     <th>Email</th>
                     <th>Update</th>
                     <th>Delete</th>
@@ -72,7 +72,7 @@ include("../config/dbcon.php");
                         <td><?php echo $row['co_superviser']; ?></td>
                         <td><?php echo $row['email']; ?></td>
                         <td><a href="#" class="btn btn-success">Update</a></td>
-                        <td><a href="#" <?php echo $row['id'] ?> class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</a></td>
+                        <td><a href="#" data-student_id="<?php echo $row['student_id']; ?>" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</a></td>
                     </tr>
                 <?php
                 }
@@ -103,3 +103,37 @@ include("../config/dbcon.php");
     include("../views/footer.php");
     ?>
 </div>
+<script>
+    $(document).ready(function() {
+        $('#deleteModal').on('show.bs.modal', function(event) {
+            var button = $(event.relatedTarget); // Button that triggered the modal
+            var studentId = button.data('student_id'); // Extract info from data-* attributes
+            var modal = $(this);
+            modal.find('#confirmDelete').click(function() {
+                deleteRecord(studentId);
+                modal.modal('hide'); // Hide the modal after clicking Yes
+            });
+        });
+    });
+
+
+    function deleteRecord(studentId) {
+        // Make an AJAX request to the delete script
+        $.ajax({
+            url: 'delete_student.php',
+            type: 'POST',
+            data: {
+                student_id: studentId
+            },
+            success: function(response) {
+                // Handle the response from the server
+                console.log(response);
+                // Optionally, you can reload the page or update the table
+                location.reload();
+            },
+            error: function(xhr, status, error) {
+                console.error(error);
+            }
+        });
+    }
+</script>

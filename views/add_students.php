@@ -8,7 +8,7 @@ include("../views/header.php");
             <form id="studentForm" action="insert_data.php" method="post" enctype="multipart/form-data" class="col-8">
 
                 <div class="">
-                    <h1 class="text-center">Student Data Form</h1>
+                    <h1 class="text-center">PhD Student Data Form</h1>
                     <div class="row">
                         <!-- <div class="col-md-6">
                             <div class="mb-3">
