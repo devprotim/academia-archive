@@ -5,7 +5,7 @@ include("../views/header.php");
 <div class="wrapper">
     <div class="content">
         <div class="d-flex justify-content-center container bg-light p-5 rounded-3 centered">
-            <form id="studentForm" action="insert_data.php" method="post" class="col-8">
+            <form id="studentForm" action="insert_data.php" method="post" enctype="multipart/form-data" class="col-8">
 
                 <div class="">
                     <h1 class="text-center">Student Data Form</h1>
@@ -75,24 +75,21 @@ include("../views/header.php");
 
                     <div class="row">
                         <div class="col-md-6">
-
                             <div class="mb-3">
-                                <label for="image" class="form-label">Profile Image:</label>
-                                <input class="form-control" type="file" id="image" name="image" accept="image/*">
+                                <label for="profile_image" class="form-label">Profile Image:</label>
+                                <input class="form-control" type="file" id="profile_image" name="profile_image" accept="image/*">
                             </div>
                         </div>
                         <div class="col-md-6">
-
                             <div class="mb-3">
-                                <label for="image" class="form-label">Library ID Front:</label>
-                                <input class="form-control" type="file" id="image" name="image" accept="image/*">
+                                <label for="idFront" class="form-label">Library ID Front:</label>
+                                <input class="form-control" type="file" id="idFront" name="idFront" accept="image/*">
                             </div>
                         </div>
                         <div class="col-md-6">
-
                             <div class="mb-3">
-                                <label for="image" class="form-label">Library ID Back:</label>
-                                <input class="form-control" type="file" id="image" name="image" accept="image/*">
+                                <label for="idBack" class="form-label">Library ID Back:</label>
+                                <input class="form-control" type="file" id="idBack" name="idBack" accept="image/*">
                             </div>
                         </div>
                     </div>
