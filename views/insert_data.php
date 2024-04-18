@@ -36,8 +36,8 @@ if (isset($_POST['add_students'])) {
             $idBack_path = processUploadedFile($idBack, '../uploads/id_back_images/');
 
             // Prepare and execute SQL query to insert data into the document_table
-            $sql = "INSERT INTO document_table ( profile_image, idFront, idBack)
-                    VALUES ( '$profile_image_path', '$idFront_path', '$idBack_path')";
+            $sql = "INSERT INTO document_table (student_id, profile_image, idFront, idBack)
+                    VALUES ('$student_id', '$profile_image_path', '$idFront_path', '$idBack_path')";
 
             if ($conn->query($sql) === TRUE) {
                 echo "New record created successfully with uploaded files";
@@ -46,8 +46,8 @@ if (isset($_POST['add_students'])) {
             }
         } else {
             // Prepare and execute SQL query to insert data into the document_table with empty file paths
-            $sql = "INSERT INTO document_table ( profile_image, idFront, idBack)
-                    VALUES ('', '', '')";
+            $sql = "INSERT INTO document_table (student_id, profile_image, idFront, idBack)
+                    VALUES ('$student_id', '', '', '')";
 
             if ($conn->query($sql) === TRUE) {
                 echo "New record created with empty file paths";

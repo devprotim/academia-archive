@@ -26,12 +26,13 @@
                 session_start();
                 $is_logged_in = isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true;
                 if ($is_logged_in) {
-                    echo '<li class="nav-item">
-                    <a class="nav-link" href="add_students.php">Add Student</a>
-                </li>';
+
                     echo '<li class="nav-item">
                 <a class="nav-link" href="home.php">Home</a>
             </li>';
+                    echo '<li class="nav-item">
+            <a class="nav-link" href="add_students.php">Add Student</a>
+        </li>';
                     echo '<li class="nav-item"><a class="nav-link" href="/academia-archive/views/logout.php">Logout</a></li>';
                 }
                 ?>
