@@ -12,7 +12,7 @@
 </head>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
-        <a class="navbar-brand" href="#">Academia Archive</a>
+        <a class="navbar-brand" href="#">PhD Scholar Profile Management</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -32,6 +32,9 @@
                     echo '<li class="nav-item">
                 <a class="nav-link" href="home.php">Home</a>
             </li>';
+                    echo '<li class="nav-item">
+            <a class="nav-link" href="approved_student.php">Approved Students</a>
+        </li>';
                     echo '<li class="nav-item">
             <a class="nav-link" href="add_students.php">Add Student</a>
         </li>';

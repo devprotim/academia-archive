@@ -1,14 +1,20 @@
 <?php
 if (isset($_POST['add_students'])) {
     // Retrieve form data
-    $student_id = $_POST['student_id'];
-    $first_name = $_POST['first_name'];
+    // $sr_no = $_POST['sr_no'];
+
+    $campus = $_POST['campus'];
+    $name = $_POST['name'];
     $last_name = $_POST['last_name'];
-    $discipline = $_POST['discipline'];
+    $gender = $_POST['gender'];
+    $email = $_POST['email'];
+    $reg_no = $_POST['reg_no'];
+    $reg_date = $_POST['reg_date'];
+    $department = $_POST['department'];
     $topic = $_POST['topic'];
     $superviser = $_POST['superviser'];
     $co_superviser = $_POST['co_superviser'];
-    $email = $_POST['email'];
+
 
     // Connect to the database
     $conn = new mysqli("localhost", "root", "", "academia-archive");
@@ -19,8 +25,8 @@ if (isset($_POST['add_students'])) {
     }
 
     // Prepare and execute SQL query to insert data into the student_table
-    $sql = "INSERT INTO student_table (student_id, first_name, last_name, discipline, topic, superviser, co_superviser, email)
-            VALUES ('$student_id', '$first_name', '$last_name', '$discipline', '$topic', '$superviser', '$co_superviser', '$email')";
+    $sql = "INSERT INTO student_table (campus, name, last_name, gender, email, reg_no, reg_date, department, topic, superviser, co_superviser)
+            VALUES ( '$campus', '$name', '$last_name',  '$gender', '$email', '$reg_no', '$reg_date', '$department', '$topic', '$superviser', '$co_superviser' )";
 
     if ($conn->query($sql) === TRUE) {
         // File upload handling
@@ -36,27 +42,34 @@ if (isset($_POST['add_students'])) {
             $idBack_path = processUploadedFile($idBack, '../uploads/id_back_images/');
 
             // Prepare and execute SQL query to insert data into the document_table
-            $sql = "INSERT INTO document_table (student_id, profile_image, idFront, idBack)
-                    VALUES ('$student_id', '$profile_image_path', '$idFront_path', '$idBack_path')";
+            $sql = "INSERT INTO document_table (reg_no, profile_image, idFront, idBack)
+                    VALUES ('$reg_no', '$profile_image_path', '$idFront_path', '$idBack_path')";
 
             if ($conn->query($sql) === TRUE) {
-                echo "New record created successfully with uploaded files";
+                // echo "New record created successfully with uploaded files";
+                $msg = "New record created successfully with uploaded files";
+                header("Location: add_students.php?error=" . urlencode($msg));
             } else {
-                echo "Error: " . $sql . "<br>" . $conn->error;
+                // echo "Error: " . $sql . "<br>" . $conn->error;
+                $msg = "Error: " . $sql . "<br>" . $conn->error;
+                header("Location: add_students.php?error=" . urlencode($msg));
             }
         } else {
             // Prepare and execute SQL query to insert data into the document_table with empty file paths
-            $sql = "INSERT INTO document_table (student_id, profile_image, idFront, idBack)
-                    VALUES ('$student_id', '', '', '')";
+            $sql = "INSERT INTO document_table (reg_no, profile_image, idFront, idBack)
+                    VALUES ('$reg_no', '', '', '')";
 
             if ($conn->query($sql) === TRUE) {
-                echo "New record created with empty file paths";
+                $msg = "New record created successfully with uploaded files";
+                header("Location: add_students.php?error=" . urlencode($msg));
             } else {
-                echo "Error: " . $sql . "<br>" . $conn->error;
+                $msg = "Error: " . $sql . "<br>" . $conn->error;
+                header("Location: add_students.php?error=" . urlencode($msg));
             }
         }
     } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
+        $msg = "Error: " . $sql . "<br>" . $conn->error;
+        header("Location: add_students.php?error=" . urlencode($msg));
     }
 
     // Close database connection

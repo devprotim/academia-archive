@@ -14,7 +14,7 @@ include("../views/header.php");
 
 <div class="wrapper">
     <div class="content">
-        <div class="d-flex align-items-center justify-content-center">
+        <div class="d-flex vh-100 align-items-center justify-content-center">
             <div class="col-12 col-md-3 bg-light p-5 rounded-3 centered">
                 <h1 class="text-center">Admin Login</h1>
                 <form action="process_login.php" method="post">

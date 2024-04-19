@@ -32,7 +32,7 @@
         <div class="content">
             <div class="container my-5">
                 <div class="jumbotron bg-light p-5 rounded-3">
-                    <h1 class="display-4">Welcome to the Academia Archive</h1>
+                    <h1 class="display-4">Welcome to PhD Scholar Profile Management</h1>
                     <p class="lead">This application helps you manage data for PhD students.</p>
                     <hr class="my-4">
                     <p>Click the buttons below to get started:</p>

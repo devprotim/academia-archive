@@ -32,3 +32,13 @@ body {
     border-radius: 5px;
     background-color: #f9f9f9;
 } */
+.required {
+    color: red;
+}
+
+.radio-options input[type="radio"],
+.radio-options label {
+    display: inline-block;
+    margin-right: 10px;
+    /* Adjust as needed */
+}
