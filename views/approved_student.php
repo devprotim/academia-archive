@@ -100,3 +100,9 @@ include("../views/header.php");
 include("../views/footer.php");
 
 ?>
+
+
+<!-- <form action="export.php" method="post">
+    <input type="hidden" name="html_content" value="<?php echo htmlentities($htmlContent); ?>">
+    <button type="submit" class="btn btn-primary">Export to HTML</button>
+</form> -->
