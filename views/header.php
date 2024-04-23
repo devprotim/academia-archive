@@ -38,7 +38,7 @@
                     echo '<li class="nav-item">
             <a class="nav-link" href="add_students.php">Add Student</a>
         </li>';
-                    echo '<li class="nav-item"><a class="nav-link" href="/academia-archive/views/logout.php">Logout</a></li>';
+                    echo '<li class="nav-item"><a class="nav-link" href="/pspm/views/logout.php">Logout</a></li>';
                 }
                 ?>
             </ul>

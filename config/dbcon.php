@@ -3,7 +3,7 @@
 define("HOSTNAME", "localhost");
 define("USERNAME", "root");
 define("PASSWORD", "");
-define("DATABASE", "academia-archive");
+define("DATABASE", "pspm");
 
 $connection = mysqli_connect(HOSTNAME, USERNAME, PASSWORD, DATABASE);
 

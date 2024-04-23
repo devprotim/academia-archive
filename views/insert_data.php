@@ -17,7 +17,7 @@ if (isset($_POST['add_students'])) {
 
 
     // Connect to the database
-    $conn = new mysqli("localhost", "root", "", "academia-archive");
+    $conn = new mysqli("localhost", "root", "", "pspm");
 
     // Check connection
     if ($conn->connect_error) {

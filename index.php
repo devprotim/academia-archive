@@ -22,7 +22,7 @@
 </head>
 
 <?php
-// include("../academia-archive/views/header.php");
+// include("../pspm/views/header.php");
 
 
 ?>
@@ -36,8 +36,8 @@
                     <p class="lead">This application helps you manage data for PhD students.</p>
                     <hr class="my-4">
                     <p>Click the buttons below to get started:</p>
-                    <a class="btn btn-primary btn-lg" href="/academia-archive/views/add_students.php" role="button">Add as Student</a>
-                    <a class="btn btn-success btn-lg" href="/academia-archive/views/home.php" role="button">Login as Admin</a>
+                    <a class="btn btn-primary btn-lg" href="/pspm/views/add_students.php" role="button">Add as Student</a>
+                    <a class="btn btn-success btn-lg" href="/pspm/views/home.php" role="button">Login as Admin</a>
                 </div>
             </div>
         </div>
@@ -45,7 +45,7 @@
 </body>
 
 <?php
-include("../academia-archive/views/footer.php");
+include("../pspm/views/footer.php");
 ?>
 
 </html>

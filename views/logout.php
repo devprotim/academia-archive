@@ -9,5 +9,5 @@ session_unset();
 session_destroy();
 
 // Redirect to the login page
-header("Location: /academia-archive");
+header("Location: /pspm");
 exit();
