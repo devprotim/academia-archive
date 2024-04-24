@@ -16,19 +16,24 @@ if (isset($_POST['add_students'])) {
     $co_superviser = $_POST['co_superviser'];
 
 
-    // Connect to the database
-    $conn = new mysqli("localhost", "root", "", "pspm");
+    // Include the database connection file
+    require_once '../config/dbcon.php';
+
+    // Check if connection was successful
+    if (!$connection) {
+        die("Connection Failed: " . mysqli_connect_error());
+    }
 
     // Check connection
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
+    if ($connection->connect_error) {
+        die("Connection failed: " . $connection->connect_error);
     }
 
     // Prepare and execute SQL query to insert data into the student_table
     $sql = "INSERT INTO student_table (campus, name, last_name, gender, email, reg_no, reg_date, department, topic, superviser, co_superviser)
             VALUES ( '$campus', '$name', '$last_name',  '$gender', '$email', '$reg_no', '$reg_date', '$department', '$topic', '$superviser', '$co_superviser' )";
 
-    if ($conn->query($sql) === TRUE) {
+    if ($connection->query($sql) === TRUE) {
         // File upload handling
         $profile_image = $_FILES['profile_image'];
         $idFront = $_FILES['idFront'];
@@ -45,13 +50,13 @@ if (isset($_POST['add_students'])) {
             $sql = "INSERT INTO document_table (reg_no, profile_image, idFront, idBack)
                     VALUES ('$reg_no', '$profile_image_path', '$idFront_path', '$idBack_path')";
 
-            if ($conn->query($sql) === TRUE) {
+            if ($connection->query($sql) === TRUE) {
                 // echo "New record created successfully with uploaded files";
                 $msg = "New record created successfully with uploaded files";
                 header("Location: add_students.php?error=" . urlencode($msg));
             } else {
-                // echo "Error: " . $sql . "<br>" . $conn->error;
-                $msg = "Error: " . $sql . "<br>" . $conn->error;
+                // echo "Error: " . $sql . "<br>" . $connection->error;
+                $msg = "Error: " . $sql . "<br>" . $connection->error;
                 header("Location: add_students.php?error=" . urlencode($msg));
             }
         } else {
@@ -59,21 +64,21 @@ if (isset($_POST['add_students'])) {
             $sql = "INSERT INTO document_table (reg_no, profile_image, idFront, idBack)
                     VALUES ('$reg_no', '', '', '')";
 
-            if ($conn->query($sql) === TRUE) {
+            if ($connection->query($sql) === TRUE) {
                 $msg = "New record created successfully with uploaded files";
                 header("Location: add_students.php?error=" . urlencode($msg));
             } else {
-                $msg = "Error: " . $sql . "<br>" . $conn->error;
+                $msg = "Error: " . $sql . "<br>" . $connection->error;
                 header("Location: add_students.php?error=" . urlencode($msg));
             }
         }
     } else {
-        $msg = "Error: " . $sql . "<br>" . $conn->error;
+        $msg = "Error: " . $sql . "<br>" . $connection->error;
         header("Location: add_students.php?error=" . urlencode($msg));
     }
 
     // Close database connection
-    $conn->close();
+    $connection->close();
 }
 
 function processUploadedFile($file, $upload_dir)
