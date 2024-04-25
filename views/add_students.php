@@ -80,7 +80,14 @@ include("../views/header.php");
                     <div class="col-md-6">
                         <div class="mb-3">
                             <label for="department" class="form-label">Department <span class="required">*</span></label>
-                            <input type="text" class="form-control" id="department" name="department" required pattern="[A-Za-z ]+">
+                            <select class="form-select form-control" aria-label="Dept select example" id="department" name="department">
+                                <option value="">Select Department</option>
+                                <option value="Physics">Physics</option>
+                                <option value="Chemistry">Chemistry</option>
+                                <option value="Mathematics">Mathematics</option>
+                                <option value="Biology">Biology</option>
+                                <option value="Computer-science">Computer Science</option>
+                            </select>
                         </div>
                     </div>
                     <div class="col-md-6">

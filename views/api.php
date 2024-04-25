@@ -11,13 +11,22 @@ if ($connection->connect_error) {
     die("Connection failed: " . $connection->connect_error);
 }
 
-function fetchData()
+function fetchData($department = null)
 {
     global $connection;
     $baseUrl = 'https://www.localhost/pspm/';
 
-    // Perform query to fetch data
-    $query = "SELECT st.*, dt.profile_image, dt.idBack, dt.idFront FROM student_table st LEFT JOIN document_table dt ON st.reg_no = dt.reg_no WHERE st.is_approved = 1";
+    // Build the query
+    $query = "SELECT st.*, dt.profile_image, dt.idBack, dt.idFront
+              FROM student_table st
+              LEFT JOIN document_table dt ON st.reg_no = dt.reg_no
+              WHERE st.is_approved = 1";
+
+    // Add the department filter if provided
+    if ($department !== null) {
+        $query .= " AND st.department = '$department'";
+    }
+
     $result = $connection->query($query);
     $data = array();
 
@@ -28,7 +37,6 @@ function fetchData()
             $row['profile_image'] = $baseUrl . str_replace('../', '', $row['profile_image']);
             $row['idBack'] = $baseUrl . str_replace('../', '', $row['idBack']);
             $row['idFront'] = $baseUrl . str_replace('../', '', $row['idFront']);
-
             $data[] = $row;
         }
     }
@@ -42,7 +50,8 @@ function fetchData()
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     // Check for endpoint
     if (isset($_GET['action']) && $_GET['action'] === 'fetchData') {
-        fetchData();
+        $department = isset($_GET['department']) ? $_GET['department'] : null;
+        fetchData($department);
     } else {
         // Handle other endpoints if needed
         http_response_code(404);

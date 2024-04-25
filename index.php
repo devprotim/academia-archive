@@ -32,7 +32,7 @@
         <div class="content">
             <div class="container my-5">
                 <div class="text-center mb-5">
-                    <img src="./assets/img/HINDI-LOGO.png" style="height: 100px; width:" alt="">
+                    <img src="./assets/img/HINDI-LOGO.png" style="height: 100px; " alt="">
                 </div>
                 <div class="jumbotron bg-light p-5 rounded-3">
                     <h1 class="display-4">Welcome to PhD Scholar Profile Management</h1>
