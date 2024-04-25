@@ -109,19 +109,19 @@ include("../views/header.php");
                     <div class="col-md-6">
                         <div class="mb-3">
                             <label for="profile_image" class="form-label">Profile Image <span class="required">*</span></label>
-                            <input class="form-control" type="file" id="profile_image" name="profile_image" accept="image/*">
+                            <input class="form-control" type="file" id="profile_image" name="profile_image" required accept="image/*">
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="mb-3">
                             <label for="idFront" class="form-label">Library ID Front <span class="required">*</span></label>
-                            <input class="form-control" type="file" id="idFront" name="idFront" accept="image/*">
+                            <input class="form-control" type="file" id="idFront" name="idFront" required accept="image/*">
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="mb-3">
                             <label for="idBack" class="form-label">Library ID Back <span class="required">*</span></label>
-                            <input class="form-control" type="file" id="idBack" name="idBack" accept="image/*">
+                            <input class="form-control" type="file" id="idBack" name="idBack" required accept="image/*">
                         </div>
                     </div>
                 </div>

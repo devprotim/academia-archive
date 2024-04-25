@@ -33,7 +33,7 @@ include("../views/header.php");
                 <?php
                 $query = "SELECT st.*, dt.profile_image, dt.idBack, dt.idFront
                           FROM student_table st
-                          LEFT JOIN document_table dt ON st.reg_no = dt.reg_no";
+                          LEFT JOIN document_table dt ON st.reg_no = dt.reg_no where st.is_approved = 1";
                 $result = mysqli_query($connection, $query);
 
                 while ($row = mysqli_fetch_assoc($result)) {
