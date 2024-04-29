@@ -23,6 +23,7 @@ include("../config/dbcon.php");
                     <th>Name</th>
                     <th>Last Name</th>
                     <th>Gender</th>
+                    <th>Phone</th>
                     <th>Email</th>
                     <th>Reg. No.</th>
                     <th>Reg. Date</th>
@@ -71,6 +72,7 @@ include("../config/dbcon.php");
                         <td><?php echo $row['name']; ?></td>
                         <td><?php echo $row['last_name']; ?></td>
                         <td><?php echo $row['gender']; ?></td>
+                        <td><?php echo $row['phone']; ?></td>
                         <td><?php echo $row['email']; ?></td>
 
                         <td><?php echo $row['reg_no']; ?></td>

@@ -1,12 +1,11 @@
 <?php
 if (isset($_POST['add_students'])) {
     // Retrieve form data
-    // $sr_no = $_POST['sr_no'];
-
     $campus = $_POST['campus'];
     $name = $_POST['name'];
     $last_name = $_POST['last_name'];
     $gender = $_POST['gender'];
+    $phone = $_POST['phone'];
     $email = $_POST['email'];
     $reg_no = $_POST['reg_no'];
     $reg_date = $_POST['reg_date'];
@@ -14,7 +13,6 @@ if (isset($_POST['add_students'])) {
     $topic = $_POST['topic'];
     $superviser = $_POST['superviser'];
     $co_superviser = $_POST['co_superviser'];
-
 
     // Include the database connection file
     require_once '../config/dbcon.php';
@@ -24,14 +22,20 @@ if (isset($_POST['add_students'])) {
         die("Connection Failed: " . mysqli_connect_error());
     }
 
-    // Check connection
-    if ($connection->connect_error) {
-        die("Connection failed: " . $connection->connect_error);
+    // Check if the email already exists in the database
+    $sql_check_email = "SELECT * FROM student_table WHERE email = '$email'";
+    $result_check_email = mysqli_query($connection, $sql_check_email);
+
+    if (mysqli_num_rows($result_check_email) > 0) {
+        // Email already exists, redirect back to the form page with an error message
+        $dupemail = "Email already exists";
+        header("Location: add_students.php?error=" . urlencode($dupemail));
+        exit();
     }
 
     // Prepare and execute SQL query to insert data into the student_table
-    $sql = "INSERT INTO student_table (campus, name, last_name, gender, email, reg_no, reg_date, department, topic, superviser, co_superviser)
-            VALUES ( '$campus', '$name', '$last_name',  '$gender', '$email', '$reg_no', '$reg_date', '$department', '$topic', '$superviser', '$co_superviser' )";
+    $sql = "INSERT INTO student_table (name, last_name, gender, campus, phone, email, reg_no, reg_date, department, topic, superviser, co_superviser)
+            VALUES ('$name', '$last_name', '$gender', '$campus', '$phone', '$email', '$reg_no', '$reg_date', '$department', '$topic', '$superviser', '$co_superviser')";
 
     if ($connection->query($sql) === TRUE) {
         // File upload handling
@@ -51,11 +55,9 @@ if (isset($_POST['add_students'])) {
                     VALUES ('$reg_no', '$profile_image_path', '$idFront_path', '$idBack_path')";
 
             if ($connection->query($sql) === TRUE) {
-                // echo "New record created successfully with uploaded files";
                 $msg = "New record created successfully with uploaded files";
                 header("Location: add_students.php?error=" . urlencode($msg));
             } else {
-                // echo "Error: " . $sql . "<br>" . $connection->error;
                 $msg = "Error: " . $sql . "<br>" . $connection->error;
                 header("Location: add_students.php?error=" . urlencode($msg));
             }
