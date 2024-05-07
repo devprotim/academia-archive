@@ -28,8 +28,8 @@ if (isset($_POST['add_students'])) {
 
     if (mysqli_num_rows($result_check_email) > 0) {
         // Email already exists, redirect back to the form page with an error message
-        $dupemail = "Email already exists";
-        header("Location: add_students.php?error=" . urlencode($dupemail));
+        $dupemail = "Email already exists.";
+        header("Location: add_students.php?dupe=" . urlencode($dupemail));
         exit();
     }
 
@@ -55,7 +55,7 @@ if (isset($_POST['add_students'])) {
                     VALUES ('$reg_no', '$profile_image_path', '$idFront_path', '$idBack_path')";
 
             if ($connection->query($sql) === TRUE) {
-                $msg = "New record created successfully with uploaded files";
+                $msg = "New record created successfully with uploaded files.";
                 header("Location: add_students.php?error=" . urlencode($msg));
             } else {
                 $msg = "Error: " . $sql . "<br>" . $connection->error;

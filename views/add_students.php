@@ -58,10 +58,15 @@ include("../views/header.php");
                             <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" pattern="^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$" required>
                         </div>
                         <?php
-                        // Display error message if provided and it's related to email duplication
-                        if (isset($_GET['error']) && strpos($_GET['error'], "Email already exists") !== false) {
-                            $dupemail = $_GET['error'];
-                            echo "<p style='color: red;'>$dupemail</p>";
+                        // if (isset($_GET['error']) && strpos($_GET['error'], "Email already exists") !== false) {
+                        //     $dupemail = $_GET['error'];
+                        //     echo "<p style='color: red;'>$dupemail</p>";
+                        // }
+                        // 
+
+                        if (isset($_GET['dupe'])) {
+                            $dupemail = $_GET['dupe'];
+                            echo "<p style='color: red'>$dupemail</p>";
                         }
                         ?>
                     </div>
@@ -118,22 +123,23 @@ include("../views/header.php");
                 </div>
 
                 <div class="row">
+                    <p>Supported image types: (.jpeg, .jpg, .png, .webp, .svg)</p>
                     <div class="col-md-6">
                         <div class="mb-3">
                             <label for="profile_image" class="form-label">Profile Image <span class="required">*</span></label>
-                            <input class="form-control" type="file" id="profile_image" name="profile_image" accept="image/*">
+                            <input class="form-control" type="file" id="profile_image" name="profile_image" accept="image/*" required>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="mb-3">
                             <label for="idFront" class="form-label">Library ID Front <span class="required">*</span></label>
-                            <input class="form-control" type="file" id="idFront" name="idFront" accept="image/*">
+                            <input class="form-control" type="file" id="idFront" name="idFront" accept="image/*" required>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="mb-3">
                             <label for="idBack" class="form-label">Library ID Back <span class="required">*</span></label>
-                            <input class="form-control" type="file" id="idBack" name="idBack" accept="image/*">
+                            <input class="form-control" type="file" id="idBack" name="idBack" accept="image/*" required>
                         </div>
                     </div>
                 </div>
@@ -142,7 +148,7 @@ include("../views/header.php");
 
                 <?php
                 // Display error message if provided
-                if (isset($_GET['error']) && strpos($_GET['error'], "Email already exists") == true) {
+                if (isset($_GET['error'])) {
                     $msg = $_GET['error'];
                     echo "<p style=' text-align: center; color: green'>$msg</p>";
                 }
