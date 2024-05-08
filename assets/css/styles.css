@@ -5,6 +5,8 @@
 html,
 body {
     height: 100vh;
+    width: 100vw;
+    overflow-x: hidden;
     margin: 0;
     font-family: Roboto, "Helvetica Neue", sans-serif;
     /* background-color: $color-background !important; */
@@ -41,4 +43,12 @@ body {
     display: inline-block;
     margin-right: 10px;
     /* Adjust as needed */
+}
+
+.navbar-nav .nav-item.active .nav-link {
+    /* Add your styling for active links here */
+    color: #fff;
+    /* Example: White color */
+    background-color: #007bff;
+    /* Example: Blue background */
 }
