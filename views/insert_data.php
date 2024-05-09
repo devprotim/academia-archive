@@ -22,17 +22,6 @@ if (isset($_POST['add_students'])) {
         die("Connection Failed: " . mysqli_connect_error());
     }
 
-    // Check if the email already exists in the database
-    $sql_check_email = "SELECT * FROM student_table WHERE email = '$email'";
-    $result_check_email = mysqli_query($connection, $sql_check_email);
-
-    if (mysqli_num_rows($result_check_email) > 0) {
-        // Email already exists, redirect back to the form page with an error message
-        $dupemail = "Email already exists.";
-        header("Location: add_students.php?dupe=" . urlencode($dupemail));
-        exit();
-    }
-
     // Prepare and execute SQL query to insert data into the student_table
     $sql = "INSERT INTO student_table (name, last_name, gender, campus, phone, email, reg_no, reg_date, department, topic, superviser, co_superviser)
             VALUES ('$name', '$last_name', '$gender', '$campus', '$phone', '$email', '$reg_no', '$reg_date', '$department', '$topic', '$superviser', '$co_superviser')";
