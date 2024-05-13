@@ -46,9 +46,10 @@ include("../views/header.php");
                 </div>
                 <div class="row">
                     <div class="col-md-6">
-                        <div class="mb-3 ">
+                        <div class="mb-3">
                             <label for="phone" class="form-label">Phone Number: <span class="required">*</span></label>
-                            <input class="form-control" type="tel" id="phone" name="phone" pattern="^\d{10}$" placeholder="Enter your phone number" required>
+                            <input class="form-control" type="text" id="phone" name="phone" maxlength="10" pattern="^\d{10}$" placeholder="Enter your 10 digit phone number" required>
+                            <div id="phoneError" class="text-danger mt-1"></div>
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -116,7 +117,7 @@ include("../views/header.php");
                     <div class="col-md-6">
                         <div class="mb-3">
                             <label for="topic" class="form-label">Area and Research Topic <i class="text-secondary">(100 Characters max.)</i> <span class="required">*</span></label>
-                            <textarea class="form-control" id="topic" name="topic" placeholder="Enter your research topic" required pattern="[A-Za-z ]+" maxlength="100" minlength="20" style="resize: none; height: 100px;"></textarea>
+                            <textarea class="form-control" id="topic" name="topic" placeholder="Enter your research topic" required pattern="[A-Za-z ]+" maxlength="100" minlength="10" style="resize: none; height: 100px;"></textarea>
                         </div>
 
                     </div>
@@ -235,19 +236,17 @@ include("../views/footer.php");
         populateDepartments(document.querySelector('input[name="campus"]:checked').value);
     });
 
-
     const emailInput = document.getElementById('email');
     const emailErrorDiv = document.getElementById('emailError');
-    const form = document.querySelector('form');
 
-    emailInput.addEventListener('input', function() {
-        const email = this.value;
+    emailInput.addEventListener('blur', function() {
+        const email = this.value.trim();
 
         // Clear previous error message
         emailErrorDiv.textContent = '';
 
         // Check if email is valid
-        if (email.trim() !== '') {
+        if (email !== '' && /^\S+@\S+\.\S+$/.test(email)) {
             const xhr = new XMLHttpRequest();
             xhr.open('GET', 'check_email.php?email=' + encodeURIComponent(email), true);
             xhr.onreadystatechange = function() {
@@ -255,6 +254,31 @@ include("../views/footer.php");
                     const response = JSON.parse(xhr.responseText);
                     if (response.exists) {
                         emailErrorDiv.textContent = 'Email already exists in the database.';
+                    }
+                }
+            };
+            xhr.send();
+        }
+    });
+
+    const phoneInput = document.getElementById('phone');
+    const phoneErrorDiv = document.getElementById('phoneError');
+
+    phoneInput.addEventListener('blur', function() {
+        const phone = this.value.trim();
+
+        // Clear previous error message
+        phoneErrorDiv.textContent = '';
+
+        // Check if phone number is valid
+        if (phone !== '' && /^\d{10}$/.test(phone)) {
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', 'check_phone.php?phone=' + encodeURIComponent(phone), true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+                    const response = JSON.parse(xhr.responseText);
+                    if (response.exists) {
+                        phoneErrorDiv.textContent = 'Phone number already exists in the database.';
                     }
                 }
             };
@@ -290,7 +314,6 @@ include("../views/footer.php");
         }
         return true;
     }
-
 
     // var yearRangeInput = document.getElementById('reg_date');
     // yearRangeInput.addEventListener('input', function() {
