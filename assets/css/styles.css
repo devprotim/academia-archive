@@ -52,3 +52,7 @@ body {
     background-color: #007bff;
     /* Example: Blue background */
 }
+
+.cursor-pointer {
+    cursor: pointer;
+}

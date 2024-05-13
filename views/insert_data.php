@@ -45,10 +45,8 @@ if (isset($_POST['add_students'])) {
 
             if ($connection->query($sql) === TRUE) {
                 $msg = "New record created successfully with uploaded files.";
-                header("Location: add_students.php?error=" . urlencode($msg));
             } else {
                 $msg = "Error: " . $sql . "<br>" . $connection->error;
-                header("Location: add_students.php?error=" . urlencode($msg));
             }
         } else {
             // Prepare and execute SQL query to insert data into the document_table with empty file paths
@@ -57,19 +55,19 @@ if (isset($_POST['add_students'])) {
 
             if ($connection->query($sql) === TRUE) {
                 $msg = "New record created successfully with uploaded files";
-                header("Location: add_students.php?error=" . urlencode($msg));
             } else {
                 $msg = "Error: " . $sql . "<br>" . $connection->error;
-                header("Location: add_students.php?error=" . urlencode($msg));
             }
         }
     } else {
         $msg = "Error: " . $sql . "<br>" . $connection->error;
-        header("Location: add_students.php?error=" . urlencode($msg));
     }
 
     // Close database connection
     $connection->close();
+
+    // Redirect to the same page and show alert message
+    echo "<script>alert('$msg'); window.location.href = 'add_students.php';</script>";
 }
 
 function processUploadedFile($file, $upload_dir)
@@ -90,15 +88,15 @@ function processUploadedFile($file, $upload_dir)
             if (move_uploaded_file($file['tmp_name'], $upload_path)) {
                 return $upload_path;
             } else {
-                echo "Error uploading file";
+                echo "<script>alert('Error uploading file');</script>";
                 return '';
             }
         } else {
-            echo "Error: Unsupported file type";
+            echo "<script>alert('Error: Unsupported file type');</script>";
             return '';
         }
     } else {
-        echo "Error uploading file: " . $file['error'];
+        echo "<script>alert('Error uploading file: " . $file['error'] . "');</script>";
         return '';
     }
 }
