@@ -137,7 +137,9 @@ include("../views/header.php");
                 </div>
 
                 <div class="row mb-3">
-                    <p><i class="text-secondary"> Supported image types: (.jpeg, .jpg, .png, .webp, .svg)</i></p>
+                    <p><i class="text-secondary"> Supported image types: (.jpeg, .jpg, .png, .webp, .svg)
+                            <br> File size limit: 200KB
+                        </i></p>
                     <div class="col-md-6">
                         <div class="mb-3">
                             <label for="profile_image" class="form-label">Profile Image <span class="required">*</span></label>
