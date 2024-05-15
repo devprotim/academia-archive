@@ -10,6 +10,7 @@ if (isset($_POST['add_students'])) {
     $reg_no = $_POST['reg_no'];
     $reg_date = $_POST['reg_date'];
     $department = $_POST['department'];
+    $degree = $_POST['degree'];
     $topic = $_POST['topic'];
     $superviser = $_POST['superviser'];
     $co_superviser = $_POST['co_superviser'];
@@ -23,8 +24,8 @@ if (isset($_POST['add_students'])) {
     }
 
     // Prepare and execute SQL query to insert data into the student_table
-    $sql = "INSERT INTO student_table (name, last_name, gender, campus, phone, email, reg_no, reg_date, department, topic, superviser, co_superviser)
-            VALUES ('$name', '$last_name', '$gender', '$campus', '$phone', '$email', '$reg_no', '$reg_date', '$department', '$topic', '$superviser', '$co_superviser')";
+    $sql = "INSERT INTO student_table (name, last_name, gender, campus, phone, email, reg_no, reg_date, department, degree, topic, superviser, co_superviser)
+            VALUES ('$name', '$last_name', '$gender', '$campus', '$phone', '$email', '$reg_no', '$reg_date', '$department', '$degree', '$topic', '$superviser', '$co_superviser')";
 
     if ($connection->query($sql) === TRUE) {
         // File upload handling

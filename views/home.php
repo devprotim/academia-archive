@@ -32,6 +32,7 @@ include("../config/dbcon.php");
                         <th>Reg. No.</th>
                         <th>Reg. Date</th>
                         <th>Department</th>
+                        <th>Degree</th>
                         <th>Topic</th>
                         <th>Superviser</th>
                         <th>Co-Superviser</th>
@@ -80,6 +81,7 @@ include("../config/dbcon.php");
                             <td><?php echo $row['reg_no']; ?></td>
                             <td><?php echo $row['reg_date']; ?></td>
                             <td><?php echo $row['department']; ?></td>
+                            <td><?php echo $row['degree']; ?></td>
                             <td style="width: 300px;"><?php echo $row['topic']; ?></td> <!-- Adjusted width for the Topic column -->
                             <td><?php echo $row['superviser']; ?></td>
                             <td><?php echo $row['co_superviser']; ?></td>
@@ -111,7 +113,7 @@ include("../config/dbcon.php");
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Modal title</h5>
+                        <!-- <h5 class="modal-title">Modal title</h5> -->
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -128,7 +130,7 @@ include("../config/dbcon.php");
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Modal title</h5>
+                        <!-- <h5 class="modal-title">Modal title</h5> -->
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
