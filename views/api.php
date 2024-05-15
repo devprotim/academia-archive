@@ -11,7 +11,7 @@ if ($connection->connect_error) {
     die("Connection failed: " . $connection->connect_error);
 }
 
-function fetchData($department = null)
+function fetchData($department = null, $campus = null)
 {
     global $connection;
     $baseUrl = 'https://www.localhost/pspm/';
@@ -25,6 +25,11 @@ function fetchData($department = null)
     // Add the department filter if provided
     if ($department !== null) {
         $query .= " AND st.department = '$department'";
+    }
+
+    // Add the campus filter if provided
+    if ($campus !== null) {
+        $query .= " AND st.campus = '$campus'";
     }
 
     $result = $connection->query($query);
@@ -51,7 +56,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     // Check for endpoint
     if (isset($_GET['action']) && $_GET['action'] === 'fetchData') {
         $department = isset($_GET['department']) ? $_GET['department'] : null;
-        fetchData($department);
+        $campus = isset($_GET['campus']) ? $_GET['campus'] : null;
+        fetchData($department, $campus);
     } else {
         // Handle other endpoints if needed
         http_response_code(404);

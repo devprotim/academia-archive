@@ -63,7 +63,7 @@ include("../views/header.php");
                 <div class="row">
                     <div class="col-md-6">
                         <div class="mb-3">
-                            <label for="reg_no" class="form-label">Registration no. <span class="required">*</span></label>
+                            <label for="reg_no" class="form-label">Registration number <span class="required">*</span></label>
                             <input type="text" class="form-control" id="reg_no" name="reg_no" placeholder="Enter your registration number" required>
                         </div>
                     </div>
@@ -109,19 +109,28 @@ include("../views/header.php");
                         </div> -->
 
                         <div id="department_dropdown" class="mb-3">
-                            <label for="department" class="form-label">Departments <span class="required">*</span></label>
+                            <label for="department" class="form-label">Department <span class="required">*</span></label>
                             <select class="form-select form-control cursor-pointer" aria-label="Dept select example" id="department" name="department" required>
                             </select>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="mb-3">
-                            <label for="topic" class="form-label">Area and Research Topic <i class="text-secondary">(100 Characters max.)</i> <span class="required">*</span></label>
-                            <textarea class="form-control" id="topic" name="topic" placeholder="Enter your research topic" required pattern="[A-Za-z ]+" maxlength="100" minlength="10" style="resize: none; height: 100px;"></textarea>
+                            <label for="degree" class="form-label">Previous Qualification <span class="required">*</span></label>
+                            <textarea name="degree" id="degree" class="form-control" placeholder="Enter your qualification" required pattern="^[A-Za-z0-9\s\-.,()]+$" maxlength="50" minlength="10"></textarea>
                         </div>
+                    </div>
 
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="mb-3">
+                            <label for="topic" class="form-label">Area of Research <i class="text-secondary">(100 Characters max.)</i> <span class="required">*</span></label>
+                            <textarea class="form-control" id="topic" name="topic" placeholder="Enter your research topic" required pattern="[A-Za-z ]+" maxlength="100" minlength="10" style=""></textarea>
+                        </div>
                     </div>
                 </div>
+
                 <div class="row">
                     <div class="col-md-6">
                         <div class="mb-3">
