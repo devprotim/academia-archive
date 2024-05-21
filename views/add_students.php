@@ -12,13 +12,13 @@ include("../views/header.php");
                     <div class="col-md-6">
                         <div class="mb-3">
                             <label for="name" class="form-label">Name <span class="required">*</span></label>
-                            <input type="text" class="form-control" id="name" name="name" required pattern="[A-Za-z ]+" placeholder="Enter your first and middle name">
+                            <input type="text" class="form-control" id="name" name="name" required pattern="[A-Za-z ]+" placeholder="Enter your first and middle name" minlength="5" maxlength="35">
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="mb-3">
                             <label for="last_name" class="form-label">Last Name </label>
-                            <input type="text" class="form-control" id="last_name" name="last_name" pattern="[A-Za-z ]+" placeholder="Enter your last name">
+                            <input type="text" class="form-control" id="last_name" name="last_name" pattern="[A-Za-z ]+" placeholder="Enter your last name" minlength="5" maxlength="15">
                         </div>
                     </div>
                 </div>
@@ -64,7 +64,7 @@ include("../views/header.php");
                     <div class="col-md-6">
                         <div class="mb-3">
                             <label for="reg_no" class="form-label">Registration number <span class="required">*</span></label>
-                            <input type="text" class="form-control" id="reg_no" name="reg_no" placeholder="Enter your registration number" required>
+                            <input type="text" class="form-control" id="reg_no" name="reg_no" placeholder="Enter your registration number" required minlength="5" maxlength="15">
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -135,13 +135,13 @@ include("../views/header.php");
                     <div class="col-md-6">
                         <div class="mb-3">
                             <label for="superviser" class="form-label">Supervisor <span class="required">*</span></label>
-                            <input type="text" class="form-control" id="superviser" name="superviser" placeholder="Enter your supervisor's name" required pattern="[A-Za-z ]+">
+                            <input type="text" class="form-control" id="superviser" name="superviser" placeholder="Enter your supervisor's name" required pattern="[A-Za-z ]+" minlength="5" maxlength="40">
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="mb-3">
                             <label for="co_superviser" class="form-label">Co-Supervisor <i class="text-secondary">(if any)</i> </label>
-                            <input type="text" class="form-control" id="co_superviser" name="co_superviser" placeholder="Enter your co-supervisor's name" pattern="[A-Za-z ]+">
+                            <input type="text" class="form-control" id="co_superviser" name="co_superviser" placeholder="Enter your co-supervisor's name" pattern="[A-Za-z ]+" minlength="5" maxlength="40">
                         </div>
                     </div>
                 </div>
