@@ -8,14 +8,57 @@ if (!isset($_SESSION['loggedin']) || !$_SESSION['loggedin']) {
     exit;
 }
 include("../config/dbcon.php");
+$page_no = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT) ?: 1;
+$results_per_page = 10;
+$offset = ($page_no - 1) * $results_per_page;
+
+$query_count = "SELECT COUNT(*) AS total FROM student_table  WHERE is_approved = 0";
+$result_count = mysqli_query($connection, $query_count);
+$number_of_result = mysqli_num_rows($result_count);
+
+// $row_count = mysqli_fetch_assoc($result_count);
+// $total_records = $row_count['total'];
+$total_pages = ceil($number_of_result / $results_per_page);
+
+$query = "SELECT st.*, dt.profile_image, dt.idBack, dt.idFront
+          FROM student_table st
+          LEFT JOIN document_table dt ON st.reg_no = dt.reg_no where st.is_approved = 0
+          LIMIT $offset, $results_per_page";
+$result = mysqli_query($connection, $query);
 ?>
 
 <div class="wrapper">
     <div class="content d-flex justify-content-center">
+
         <div class="overflow-auto" style="width: 95vw;">
             <table class="table table-hover table-bordered table-striped container">
+                <nav class="mt-5">
+                    <ul class="pagination pagination-sm justify-content-center">
+                        <?php if ($page_no > 1) : ?>
+                            <li class="page-item"><a class="page-link" href="?page=1">First</a></li>
+                        <?php endif; ?>
+
+                        <li class="page-item <?= ($page_no <= 1) ? 'disabled' : '' ?>">
+                            <a class="page-link" href="<?= ($page_no > 1) ? '?page=' . ($page_no - 1) : '#' ?>">Previous</a>
+                        </li>
+
+                        <?php for ($i = 1; $i <= $total_pages; $i++) : ?>
+                            <li class="page-item <?= ($i == $page_no) ? 'active' : '' ?>">
+                                <a class="page-link" href="?page=<?= $i; ?>"><?= $i; ?></a>
+                            </li>
+                        <?php endfor; ?>
+
+                        <li class="page-item <?= ($page_no >= $total_pages) ? 'disabled' : '' ?>">
+                            <a class="page-link" href="<?= ($page_no < $total_pages) ? '?page=' . ($page_no + 1) : '#' ?>">Next</a>
+                        </li>
+
+                        <?php if ($page_no < $total_pages) : ?>
+                            <li class="page-item"><a class="page-link" href="?page=<?= $total_pages; ?>">Last</a></li>
+                        <?php endif; ?>
+                    </ul>
+                </nav>
                 <h1 class="text-center mt-4 mb-3 ">
-                    <u>All Students</u>
+                    <u>Pending Students</u>
                 </h1>
                 <thead>
                     <tr>
@@ -37,37 +80,35 @@ include("../config/dbcon.php");
                         <th>Superviser</th>
                         <th>Co-Superviser</th>
                         <th>Action</th>
-                        <!-- <th>Delete</th> -->
                     </tr>
                 </thead>
                 <tbody>
-                    <?php
-                    $query = "SELECT st.*, dt.profile_image, dt.idBack, dt.idFront
-                          FROM student_table st
-                          LEFT JOIN document_table dt ON st.reg_no = dt.reg_no";
-                    $result = mysqli_query($connection, $query);
-
-                    while ($row = mysqli_fetch_assoc($result)) {
-                    ?>
+                    <?php while ($row = mysqli_fetch_assoc($result)) : ?>
                         <tr>
                             <td><?php echo $row['sr_no']; ?></td>
                             <td>
                                 <?php if (!empty($row['profile_image'])) : ?>
-                                    <img src="<?php echo $row['profile_image']; ?>" alt="Profile Image" width="50">
+                                    <a href="#imageModal" data-image="<?php echo $row['profile_image']; ?>" data-title="Profile Image" data-bs-toggle="modal">
+                                        <img src="<?php echo $row['profile_image']; ?>" alt="Profile Image" width="50">
+                                    </a>
                                 <?php else : ?>
                                     No Image
                                 <?php endif; ?>
                             </td>
                             <td>
                                 <?php if (!empty($row['idBack'])) : ?>
-                                    <img src="<?php echo $row['idBack']; ?>" alt="ID Back" width="50">
+                                    <a href="#imageModal" data-image="<?php echo $row['idBack']; ?>" data-title="ID Back" data-bs-toggle="modal">
+                                        <img src="<?php echo $row['idBack']; ?>" alt="ID Back" width="50">
+                                    </a>
                                 <?php else : ?>
                                     No Image
                                 <?php endif; ?>
                             </td>
                             <td>
                                 <?php if (!empty($row['idFront'])) : ?>
-                                    <img src="<?php echo $row['idFront']; ?>" alt="ID Front" width="50">
+                                    <a href="#imageModal" data-image="<?php echo $row['idFront']; ?>" data-title="ID Front" data-bs-toggle="modal">
+                                        <img src="<?php echo $row['idFront']; ?>" alt="ID Front" width="50">
+                                    </a>
                                 <?php else : ?>
                                     No Image
                                 <?php endif; ?>
@@ -82,7 +123,7 @@ include("../config/dbcon.php");
                             <td><?php echo $row['reg_date']; ?></td>
                             <td><?php echo $row['department']; ?></td>
                             <td><?php echo $row['degree']; ?></td>
-                            <td style="width: 300px;"><?php echo $row['topic']; ?></td> <!-- Adjusted width for the Topic column -->
+                            <td style="width: 300px;"><?php echo $row['topic']; ?></td>
                             <td><?php echo $row['superviser']; ?></td>
                             <td><?php echo $row['co_superviser']; ?></td>
                             <td>
@@ -99,21 +140,42 @@ include("../config/dbcon.php");
                                 </div>
                             </td>
                         </tr>
-
-                    <?php
-                    }
-                    ?>
+                    <?php endwhile; ?>
                 </tbody>
-            </table>
-        </div>
 
+            </table>
+            <nav>
+                <ul class="pagination pagination-sm justify-content-center">
+                    <?php if ($page_no > 1) : ?>
+                        <li class="page-item"><a class="page-link" href="?page=1">First</a></li>
+                    <?php endif; ?>
+
+                    <li class="page-item <?= ($page_no <= 1) ? 'disabled' : '' ?>">
+                        <a class="page-link" <?= ($page_no > 1) ? "href='?page=$page_no-1'" : '' ?>>Previous</a>
+                    </li>
+
+                    <?php for ($i = 1; $i <= $total_pages; $i++) : ?>
+                        <li class="page-item <?= ($i == $page_no) ? 'active' : '' ?>">
+                            <a class="page-link" href="?page=<?= $i; ?>"><?= $i; ?></a>
+                        </li>
+                    <?php endfor; ?>
+
+                    <li class="page-item <?= ($page_no >= $total_pages) ? 'disabled' : '' ?>">
+                        <a class="page-link" <?= ($page_no < $total_pages) ? "href='?page=$page_no+1'" : '' ?>>Next</a>
+                    </li>
+
+                    <?php if ($page_no < $total_pages) : ?>
+                        <li class="page-item"><a class="page-link" href="?page=<?= $total_pages; ?>">Last</a></li>
+                    <?php endif; ?>
+                </ul>
+            </nav>
+        </div>
 
         <!-- Modal for delete confirmation -->
         <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <!-- <h5 class="modal-title">Modal title</h5> -->
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -126,11 +188,11 @@ include("../config/dbcon.php");
                 </div>
             </div>
         </div>
+        <!-- Modal for approve confirmation -->
         <div class="modal fade" id="approveModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <!-- <h5 class="modal-title">Modal title</h5> -->
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -143,12 +205,40 @@ include("../config/dbcon.php");
                 </div>
             </div>
         </div>
+
+        <!-- Pagination -->
+
     </div>
-    <?php
-    include("../views/footer.php");
-    ?>
+
+    <?php include("../views/footer.php"); ?>
+</div>
+<!-- Modal for Images -->
+<div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header justify-content-between">
+                <h5 class="modal-title" id="imageModalLabel"></h5>
+                <div class="modal-header ">
+                    <button type="button" class="btn-close border-none" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+            </div>
+            <div class="modal-body text-center">
+                <img src="" alt="" class="img-fluid">
+            </div>
+            <!-- <div class="modal-footer">
+            </div> -->
+        </div>
+    </div>
 </div>
 <script>
+    $(document).ready(function() {
+        $('#imageModal').on('show.bs.modal', function(e) {
+            var imageUrl = $(e.relatedTarget).data('image');
+            var imageTitle = $(e.relatedTarget).data('title');
+            $(this).find('.modal-body img').attr('src', imageUrl);
+            $(this).find('.modal-title').text(imageTitle);
+        });
+    });
     $(document).ready(function() {
         $('#deleteModal').on('show.bs.modal', function(event) {
             var button = $(event.relatedTarget); // Button that triggered the modal

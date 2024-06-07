@@ -17,8 +17,8 @@ include("../views/header.php");
                     </div>
                     <div class="col-md-6">
                         <div class="mb-3">
-                            <label for="last_name" class="form-label">Last Name </label>
-                            <input type="text" class="form-control" id="last_name" name="last_name" pattern="[A-Za-z ]+" placeholder="Enter your last name" minlength="5" maxlength="15">
+                            <label for="last_name" class="form-label">Last Name <span class="required">*</span></label>
+                            <input type="text" class="form-control" id="last_name" name="last_name" pattern="[A-Za-z ]+" placeholder="Enter your last name" minlength="1" maxlength="15" required>
                         </div>
                     </div>
                 </div>
@@ -82,8 +82,6 @@ include("../views/header.php");
                                 for ($year = $startYear; $year <= $currentYear; $year++) {
                                     // Calculate the end year
                                     $endYear = $year + 1;
-
-                                    // Display the option
                                     echo "<option value='$year-$endYear'>$year-$endYear</option>";
                                 }
                                 ?>
@@ -95,18 +93,13 @@ include("../views/header.php");
 
                 <div class="row">
                     <div class="col-md-6">
-                        <!-- <div id="aus_department_dropdown" class="mb-3">
-                            <label for="department_aus" class="form-label">Departments for AUS Campus <span class="required">*</span></label>
-                            <select class="form-select form-control" aria-label="Dept select example" id="department_aus" name="department" required>
-                                <option value="">Select Department</option>
-                                <?php
-                                include 'departments.php';
-                                foreach ($departments as $department) {
-                                    echo "<option value=\"$department\">$department</option>";
-                                }
-                                ?>
-                            </select>
-                        </div> -->
+
+                        <?php
+                        include 'departments.php';
+                        foreach ($departments as $department) {
+                            echo "<option value=\"$department\">$department</option>";
+                        }
+                        ?>
 
                         <div id="department_dropdown" class="mb-3">
                             <label for="department" class="form-label">Department <span class="required">*</span></label>
@@ -180,9 +173,6 @@ include("../views/header.php");
                         <input type="submit" id="statusText" class="btn btn-primary w-100" value="Submit" name="add_students"></input>
 
                     </div>
-
-
-
                 </div>
 
                 <?php
@@ -201,21 +191,6 @@ include("../views/footer.php");
 ?>
 
 <script>
-    // document.addEventListener('DOMContentLoaded', function() {
-    //     const submitBtn = document.getElementById('submitBtn');
-    //     const spinner = document.getElementById('spinner');
-    //     const statusText = document.getElementById('statusText');
-
-    //     // Add a submit event listener to the form
-    //     document.querySelector('form').addEventListener('submit', function() {
-    //         // Show the spinner and change the text to "Loading..."
-    //         spinner.style.display = 'inline-block';
-    //         statusText.textContent = 'Loading...';
-    //         submitBtn.disabled = true; // Disable the button to prevent multiple submissions
-    //     });
-    // });
-
-
     document.addEventListener('DOMContentLoaded', function() {
         var departmentDropdown = document.getElementById('department');
         var campusRadios = document.getElementsByName('campus');
@@ -323,60 +298,4 @@ include("../views/footer.php");
         }
         return true;
     }
-
-    // var yearRangeInput = document.getElementById('reg_date');
-    // yearRangeInput.addEventListener('input', function() {
-    //     var yearPattern = /^(\d{4})-(\d{4})$/;
-    //     var match = yearPattern.exec(this.value);
-    //     var errorMessage = document.getElementById('error-message');
-
-    //     if (match) {
-    //         var startYear = parseInt(match[1]);
-    //         var endYear = parseInt(match[2]);
-    //         var currentYear = new Date().getFullYear();
-
-    //         // Check if startYear is less than 1994
-    //         if (startYear < 1994) {
-    //             startYear = 1994;
-    //         }
-
-    //         if (startYear > currentYear) {
-    //             startYear = currentYear;
-    //             endYear = startYear - 1;
-    //         }
-
-    //         // Ensure endYear is always one more than startYear
-    //         if (endYear !== startYear + 1) {
-    //             endYear = startYear + 1;
-    //         }
-
-    //         // Check if endYear is greater than the current year
-    //         if (endYear > currentYear) {
-    //             endYear = currentYear + 1;
-    //         }
-
-    //         this.value = startYear + '-' + endYear;
-    //         errorMessage.textContent = ''; // Clear error message
-    //     } else {
-    //         errorMessage.textContent = 'Invalid format. Please enter a year range in the format YYYY-YYYY.';
-    //     }
-    // });
 </script>
-
-<!-- DevP90524 -->
-<!-- <li class="menu-item-has-children dropdown">
-    <a href="#"><i class="fa fa-address-card"></i>Admission</a>
-    <ul class="sub-menu dropdown-menu multi-level">
-        <li class="menu-item-has-children dropdown">
-            <a href="#"><i class="fa fa-circle"></i>Prospectus</a>
-            <ul class="sub-menu dropdown-menu multi-level">
-                <li><a href="http://www.aus.ac.in/wp-content/uploads/2023/08/Common-UG-PG-PhD-Prospectus-2023-24-1.pdf"><i class="fa fa-circle"></i>Prospectus(2023-24)</a></li>
-            </ul>
-        </li>
-    </ul>
-    <ul class="sub-menu dropdown-menu multi-level" style="top: 70px;">
-        <li>
-            <a href="https://ausexamination.ac.in/admission/" style="top: 140px"><i class="fa fa-circle"></i>Admission Portal</a>
-        </li>
-    </ul>
-</li> -->

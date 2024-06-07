@@ -30,7 +30,7 @@
                 if ($is_logged_in) {
 
                     echo '<li class="nav-item">
-                <a class="nav-link" href="home.php">Home</a>
+                <a class="nav-link" href="home.php">Pending Students</a>
             </li>';
                     echo '<li class="nav-item">
             <a class="nav-link" href="approved_student.php">Approved Students</a>
