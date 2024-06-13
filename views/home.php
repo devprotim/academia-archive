@@ -1,30 +1,21 @@
 <?php
+include("../config/dbcon.php");
 include("../views/header.php");
 // session_start();
-
 // If the admin is not logged in, redirect to the login page
 if (!isset($_SESSION['loggedin']) || !$_SESSION['loggedin']) {
     header('Location: admin_login.php');
     exit;
 }
-include("../config/dbcon.php");
-$page_no = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT) ?: 1;
-$results_per_page = 10;
-$offset = ($page_no - 1) * $results_per_page;
 
-$query_count = "SELECT COUNT(*) AS total FROM student_table  WHERE is_approved = 0";
-$result_count = mysqli_query($connection, $query_count);
-$number_of_result = mysqli_num_rows($result_count);
 
-// $row_count = mysqli_fetch_assoc($result_count);
-// $total_records = $row_count['total'];
-$total_pages = ceil($number_of_result / $results_per_page);
 
-$query = "SELECT st.*, dt.profile_image, dt.idBack, dt.idFront
-          FROM student_table st
-          LEFT JOIN document_table dt ON st.reg_no = dt.reg_no where st.is_approved = 0
-          LIMIT $offset, $results_per_page";
-$result = mysqli_query($connection, $query);
+
+// $query = "SELECT st.*, dt.profile_image, dt.idBack, dt.idFront
+//           FROM student_table st
+//           LEFT JOIN document_table dt ON st.reg_no = dt.reg_no where st.is_approved = 0
+// ";
+// $result = mysqli_query($connection, $query);
 ?>
 
 <div class="wrapper">
@@ -32,34 +23,14 @@ $result = mysqli_query($connection, $query);
 
         <div class="overflow-auto" style="width: 95vw;">
             <table class="table table-hover table-bordered table-striped container">
-                <nav class="mt-5">
-                    <ul class="pagination pagination-sm justify-content-center">
-                        <?php if ($page_no > 1) : ?>
-                            <li class="page-item"><a class="page-link" href="?page=1">First</a></li>
-                        <?php endif; ?>
 
-                        <li class="page-item <?= ($page_no <= 1) ? 'disabled' : '' ?>">
-                            <a class="page-link" href="<?= ($page_no > 1) ? '?page=' . ($page_no - 1) : '#' ?>">Previous</a>
-                        </li>
-
-                        <?php for ($i = 1; $i <= $total_pages; $i++) : ?>
-                            <li class="page-item <?= ($i == $page_no) ? 'active' : '' ?>">
-                                <a class="page-link" href="?page=<?= $i; ?>"><?= $i; ?></a>
-                            </li>
-                        <?php endfor; ?>
-
-                        <li class="page-item <?= ($page_no >= $total_pages) ? 'disabled' : '' ?>">
-                            <a class="page-link" href="<?= ($page_no < $total_pages) ? '?page=' . ($page_no + 1) : '#' ?>">Next</a>
-                        </li>
-
-                        <?php if ($page_no < $total_pages) : ?>
-                            <li class="page-item"><a class="page-link" href="?page=<?= $total_pages; ?>">Last</a></li>
-                        <?php endif; ?>
-                    </ul>
-                </nav>
                 <h1 class="text-center mt-4 mb-3 ">
                     <u>Pending Students</u>
                 </h1>
+                <?php
+                include("../views/pagination.php");
+
+                ?>
                 <thead>
                     <tr>
                         <th>Sr. No.</th>
@@ -83,6 +54,7 @@ $result = mysqli_query($connection, $query);
                     </tr>
                 </thead>
                 <tbody>
+
                     <?php while ($row = mysqli_fetch_assoc($result)) : ?>
                         <tr>
                             <td><?php echo $row['sr_no']; ?></td>
@@ -144,31 +116,10 @@ $result = mysqli_query($connection, $query);
                 </tbody>
 
             </table>
-            <nav>
-                <ul class="pagination pagination-sm justify-content-center">
-                    <?php if ($page_no > 1) : ?>
-                        <li class="page-item"><a class="page-link" href="?page=1">First</a></li>
-                    <?php endif; ?>
+            <?php
+            include("../views/pagination.php");
 
-                    <li class="page-item <?= ($page_no <= 1) ? 'disabled' : '' ?>">
-                        <a class="page-link" <?= ($page_no > 1) ? "href='?page=$page_no-1'" : '' ?>>Previous</a>
-                    </li>
-
-                    <?php for ($i = 1; $i <= $total_pages; $i++) : ?>
-                        <li class="page-item <?= ($i == $page_no) ? 'active' : '' ?>">
-                            <a class="page-link" href="?page=<?= $i; ?>"><?= $i; ?></a>
-                        </li>
-                    <?php endfor; ?>
-
-                    <li class="page-item <?= ($page_no >= $total_pages) ? 'disabled' : '' ?>">
-                        <a class="page-link" <?= ($page_no < $total_pages) ? "href='?page=$page_no+1'" : '' ?>>Next</a>
-                    </li>
-
-                    <?php if ($page_no < $total_pages) : ?>
-                        <li class="page-item"><a class="page-link" href="?page=<?= $total_pages; ?>">Last</a></li>
-                    <?php endif; ?>
-                </ul>
-            </nav>
+            ?>
         </div>
 
         <!-- Modal for delete confirmation -->
