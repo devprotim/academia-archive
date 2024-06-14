@@ -21,8 +21,8 @@ if (!isset($_SESSION['loggedin']) || !$_SESSION['loggedin']) {
 <div class="wrapper">
     <div class="content d-flex justify-content-center">
 
-        <div class="overflow-auto" style="width: 95vw;">
-            <table class="table table-hover table-bordered table-striped container">
+        <div class="overflow-auto" style="">
+            <table class="table table-responsive table-hover table-bordered table-striped container p-0 rounded">
 
                 <h1 class="text-center mt-4 mb-3 ">
                     <u>Pending Students</u>
@@ -95,7 +95,7 @@ if (!isset($_SESSION['loggedin']) || !$_SESSION['loggedin']) {
                             <td><?php echo $row['reg_date']; ?></td>
                             <td><?php echo $row['department']; ?></td>
                             <td><?php echo $row['degree']; ?></td>
-                            <td style="width: 300px;"><?php echo $row['topic']; ?></td>
+                            <td><?php echo $row['topic']; ?></td>
                             <td><?php echo $row['superviser']; ?></td>
                             <td><?php echo $row['co_superviser']; ?></td>
                             <td>

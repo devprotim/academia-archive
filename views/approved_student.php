@@ -13,10 +13,9 @@ include("../views/header.php");
 ?>
 
 <div class="wrapper">
-    <div class="content">
-        <div class="overflow-auto" style="width: 95vw;">
-
-            <table class="table table-hover table-bordered table-striped container">
+    <div class="content d-flex justify-content-center">
+        <div class="overflow-auto" style="">
+            <table class="table table-responsive rounded p-0 table-hover table-bordered table-striped container">
 
                 <h1 class="text-center mt-4 mb-3 ">
                     <u>Approved Students</u>
@@ -115,6 +114,25 @@ include("../views/header.php");
     ?>
 </div>
 
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <!-- <h5 class="modal-title">Modal title</h5> -->
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete this record?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                <button type="button" class="btn btn-danger" id="confirmDelete">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <!-- Modal for Images -->
 <div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -135,6 +153,38 @@ include("../views/header.php");
 </div>
 
 <script>
+    $(document).ready(function() {
+        $('#deleteModal').on('show.bs.modal', function(event) {
+            var button = $(event.relatedTarget); // Button that triggered the modal
+            var reg_no = button.data('reg_no'); // Extract info from data-* attributes
+            var modal = $(this);
+            modal.find('#confirmDelete').click(function() {
+                deleteRecord(reg_no);
+                modal.modal('hide'); // Hide the modal after clicking Yes
+            });
+        });
+    });
+
+    function deleteRecord(reg_no) {
+        // Make an AJAX request to the delete script
+        $.ajax({
+            url: 'delete_student.php',
+            type: 'POST',
+            data: {
+                reg_no: reg_no
+            },
+            success: function(response) {
+                // Handle the response from the server
+                console.log(response);
+                // Optionally, you can reload the page or update the table
+                location.reload();
+            },
+            error: function(xhr, status, error) {
+                console.error(error);
+            }
+        });
+    }
+
     $(document).ready(function() {
         $('#imageModal').on('show.bs.modal', function(e) {
             var imageUrl = $(e.relatedTarget).data('image');
