@@ -11,28 +11,39 @@ if ($connection->connect_error) {
     die("Connection failed: " . $connection->connect_error);
 }
 
-function fetchData($department = null, $campus = null)
+function fetchData($department = null, $campus = null, $pageNum = 1, $resultsPerPage = 5)
 {
     global $connection;
     $baseUrl = 'https://www.localhost/pspm/';
 
-    // Build the query
-    $query = "SELECT st.*, dt.profile_image, dt.idBack, dt.idFront
-              FROM student_table st
-              LEFT JOIN document_table dt ON st.reg_no = dt.reg_no
-              WHERE st.is_approved = 1";
+    // Base query for counting and fetching
+    $baseQuery = "FROM student_table st
+                  LEFT JOIN document_table dt ON st.reg_no = dt.reg_no
+                  WHERE st.is_approved = 1";
 
     // Add the department filter if provided
     if ($department !== null) {
-        $query .= " AND st.department = '$department'";
+        $baseQuery .= " AND st.department = '$department'";
     }
 
     // Add the campus filter if provided
     if ($campus !== null) {
-        $query .= " AND st.campus = '$campus'";
+        $baseQuery .= " AND st.campus = '$campus'";
     }
 
-    $result = $connection->query($query);
+    // Query to count total records
+    $countQuery = "SELECT COUNT(*) as total " . $baseQuery;
+    $countResult = $connection->query($countQuery);
+    $totalCount = $countResult->fetch_assoc()['total'];
+
+    // Calculate offset for pagination
+    $offset = ($pageNum - 1) * $resultsPerPage;
+
+    // Query to fetch data with pagination
+    $fetchQuery = "SELECT st.*, dt.profile_image, dt.idBack, dt.idFront " . $baseQuery;
+    $fetchQuery .= " LIMIT $resultsPerPage OFFSET $offset";
+
+    $result = $connection->query($fetchQuery);
     $data = array();
 
     // Fetch data and store in array
@@ -46,20 +57,24 @@ function fetchData($department = null, $campus = null)
         }
     }
 
-    // Return data as JSON
+    // Calculate result count
+    $resultCount = count($data);
+    $result_limit = 5;
+
+    // Return data as JSON including total count and result count
     header('Content-Type: application/json');
-    echo json_encode($data);
+    echo json_encode(array("total_count" => $totalCount, "result_count" => $resultCount, "result_limit" => $result_limit,  "data" => $data));
 }
 
 // Handle API requests
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-    // Check for endpoint
     if (isset($_GET['action']) && $_GET['action'] === 'fetchData') {
         $department = isset($_GET['department']) ? $_GET['department'] : null;
         $campus = isset($_GET['campus']) ? $_GET['campus'] : null;
-        fetchData($department, $campus);
+        $pageNum = isset($_GET['pageNum']) ? intval($_GET['pageNum']) : 1;  // Default to 1 if not provided
+        $resultsPerPage = isset($_GET['resultsPerPage']) ? intval($_GET['resultsPerPage']) : 5;  // Default to 5 if not provided
+        fetchData($department, $campus, $pageNum, $resultsPerPage);
     } else {
-        // Handle other endpoints if needed
         http_response_code(404);
         echo json_encode(array("message" => "Endpoint not found"));
     }
